@@ -1,16 +1,15 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[edit update]
   def index
     @groups = current_user.groups
     @user = current_user
   end
 
-  def new
-    @group = Group.new
-  end
+    def new
+      @group = Group.new
+    end
 
   def create
-    @group = current_user.groups.new(group_params)
+    @group = current_user.groups.new(params[:name])
     if @group.save
       redirect_to group_messages_path(@group), notice: "グループを作成しました"
     else
@@ -20,9 +19,10 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:id])
   end
-
   def update
+    @group = Group.find(params[:id])
     if @group.update(group_params)
       redirect_to group_messages_path(@group), notice: "グループを編集しました"
     else
@@ -31,17 +31,4 @@ class GroupsController < ApplicationController
     end
   end
 
-  private
-
-  def group_params
-    params.require(:group).permit(:name, user_ids:[])
-  end
-
-  def set_group
-    @group = Group.find(params[:id])
-  end
-
 end
-
-
-
