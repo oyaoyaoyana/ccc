@@ -1,0 +1,4 @@
+.side-bottom__box
+  =link_to "#{group.name}", group_messages_path(group), class: "message"
+  .re_message
+    = group.show_last_messages
