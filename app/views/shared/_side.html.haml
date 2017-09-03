@@ -1,0 +1,11 @@
+.side_top__message-box
+  .side_top__message-box__name
+    = current_user.name
+.side_top__icon-box
+  .side_top__icon-box__icon-left
+    = link_to new_group_path, class: "icon_box1_icon" do
+      =fa_icon 'edit'
+  .side_top__icon-box__icon-right
+    = link_to  edit_user_path(current_user), class: "icon_box2_icon" do
+      = fa_icon 'cog'
+

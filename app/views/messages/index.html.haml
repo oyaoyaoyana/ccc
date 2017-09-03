@@ -1,0 +1,28 @@
+.contents.clearfix
+  .side
+    .side_top
+      = render partial: 'shared/side'
+    .side-bottom
+      = render partial: 'shared/side-bottom__box', collection: @groups, as: 'group'
+  .main
+    .chat-header.papa
+      .chat-header__left
+        %h1.chat-header__left__title
+          = @group.name
+        .chat-header__left__sub_sample
+          %p member:
+          = @group.arange_user
+      .chat-header__right
+        = link_to edit_group_path(@group), class: "header_box2" do
+          = image_tag("edit.gif")
+
+    .main_center.papa
+      = render partial: 'shared/main-messages', collection: @messages,as: 'message'
+
+    .main_bottom.papa
+      = form_for ([@group,@message]) do |f|
+        =f.text_field :body, class: "main_bottom__message-box", placeholder: "type a message"
+        .main_bottom__message-box__icon
+          =f.label :image, class: 'fa fa-picture-o' do
+            =f.file_field :image, class: "bottom_icon", id: 'message_image'
+        =f.submit "send", class: "main_bottom__sent-button"
